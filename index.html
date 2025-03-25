@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: hidden; /* Prevent scrolling */
+            margin: 0; /* Remove default margin */
+        }
+        .button-5 {
+            align-items: center;
+            background-clip: padding-box;
+            background-color: #fa6400;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 1.25;
+            margin: 0;
+            /* Remove or adjust min-height */
+            min-height: unset; /* Or set to a smaller value like 1.5rem */
+            padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+            position: relative;
+            text-decoration: none;
+            transition: all 250ms;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            height: 30px; /* This will now take effect */
+            width: 80px;
+        }
+
+        .button-5:hover,
+        .button-5:focus {
+        background-color: #fb8332;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        }
+
+        .button-5:hover {
+        transform: translateY(-1px);
+        }
+
+        .button-5:active {
+        background-color: #c85000;
+        box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+        transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background for focus */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: transparent; /* Make modal content background transparent */
+            padding: 0; /* Remove padding */
+            border-radius: 0; /* Remove border radius */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .modal-content img {
+            max-width: 97%;
+            max-height: 97%;
+            object-fit: contain; /* Ensure the image fits within the modal */
+            animation: modalImageAnimation 1s ease-in-out forwards; /* Apply animation to the image */
+        }
+    
+        /* Keyframes for the image animation */
+        @keyframes modalImageAnimation {
+            0% {
+                transform: scale(0.1) rotate(-360deg); /* Start small and rotated */
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg); /* Full size and no rotation */
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background-color:lightblue;scroll-behavior:none;">
+        <div style="padding: 10px 20px;display:grid;justify-content:center;align-items:center;">
+            <h5>Hello, this is the invitation for Ajay's party. Click the button below to get the invitation if you are not gay. Just kidding! 😂</h5>
+            <div style="width:100%;display:flex;justify-content:center;align-items:center;margin-top:10px;">
+                <button class="button-5" onmouseover="f1()" onclick="f1(1)" role="button">PRESS</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <img src="./uffAjay.jpg" alt="Invitation Image">
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    let k = 0;
+    function f1(n = '') {
+        if (k === 0) {
+            $(".button-5").css({
+                "margin-left": "40%",
+            });
+            k++;
+        } else if (k === 1) {
+            $(".button-5").css({
+                "margin-left": "0%",
+            });
+            k++;
+        } else if (k === 2) {
+            k++;
+            $(".button-5").css({
+                "margin-left": "-40%",
+            });
+        } else if (k === 3) {
+            k++;
+            $(".button-5").css({
+                "margin-left": "0%",
+            });
+            alert('Im just kidding Click Now!');
+        } else if (k === 4) {
+            k++;
+            $(".button-5").css({
+                "margin-left": "50%",
+            });
+        } else if (k === 5) {
+            k++;
+            $(".button-5").css({
+                "margin-left": "0%",
+            });
+            alert('Sorry....... once more please!');
+        } else {
+            if (n != '') {
+                goFullScreen();
+                $(".button-5").replaceWith('<p id="timer" style="font-size: 20px; font-weight: bold;">5</p>');
+
+                let timer = 5;
+                const interval = setInterval(() => {
+                    if (timer == 0) {
+                        $("#timer").text("Come on guys lets party.......!");
+                        $("#timer").css("color", "#D84040");
+                    }else{
+                        $("#timer").text(timer);
+                    }
+                    timer--;
+                    if (timer == -3) {
+                        clearInterval(interval);
+                        $("#timer").remove(); // Remove the timer
+                        $("#myModal").css("display", "flex"); // Show the modal with animation
+                    }
+                }, 1000);
+            }
+        }
+    }
+    function goFullScreen() {
+        const element = document.documentElement; // Get the root element
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // For Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // For Chrome, Safari, and Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // For IE/Edge
+            element.msRequestFullscreen();
+        }
+    }
+</script>
